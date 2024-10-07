@@ -2,269 +2,384 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - PR fetal</title>
+  <title>CodePen - Colestasis</title>
   
 
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<html><head><base href="https://pr-fetal-percentiles.app/"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calculadora PR Fetal</title><style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
+<html><head><base href="https://obstetric-cholestasis.app/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Riesgo de Colestasis Intrahepática del Embarazo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+  :root {
+    --primary-color: #4a90e2;
+    --secondary-color: #34495e;
+    --background-color: #f5f7fa;
+    --form-background: #ffffff;
+    --text-color: #333;
+    --label-color: #5d6d7e;
+    --input-border: #d5d8dc;
+    --input-focus: #3498db;
+    --low-risk: #27ae60;
+    --medium-risk: #f39c12;
+    --high-risk: #e74c3c;
+    --box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  * {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-}
-.container {
-    background-color: white;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    max-width: 800px;
-    width: 100%;
-    margin: auto;
-    flex-grow: 1;
-}
-h1, h2 {
-    color: #3498db;
-    text-align: center;
-}
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #2c3e50;
-}
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #bdc3c7;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-.input-group {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-.input-group input, .input-group select {
+  }
+
+  .container {
     flex: 1;
-    margin-bottom: 0;
-}
-button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
     width: 100%;
-    font-size: 16px;
-}
-button:hover {
-    background-color: #2980b9;
-}
-.resultado {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #ebf5fb;
-    border-radius: 4px;
-    text-align: center;
-    font-weight: bold;
-    color: #2c3e50;
-}
-.chart-container {
-    width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     margin: 20px auto;
-}
-footer {
+    background-color: var(--form-background);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+  }
+
+  header {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    font-weight: 300;
+    opacity: 0.8;
+  }
+
+  form {
+    padding: 30px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .form-section {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .form-section h3 {
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--label-color);
+    font-size: 14px;
+  }
+
+  input[type="number"], input[type="text"], select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--input-border);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+
+  input[type="number"]:focus, input[type="text"]:focus, select:focus {
+    outline: none;
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  }
+
+  button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+
+  button:hover {
+    background-color: #3a7bc8;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  #resultado {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 12px;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .bajo-riesgo { background-color: var(--low-risk); color: white; }
+  .mediano-riesgo { background-color: var(--medium-risk); color: white; }
+  .alto-riesgo { background-color: var(--high-risk); color: white; }
+
+  footer {
+    background-color: var(--secondary-color);
+    color: white;
     text-align: center;
     padding: 10px;
-    background-color: #3498db;
-    color: white;
     font-size: 14px;
-    margin-top: 20px;
-}
+  }
+
+  @media (max-width: 600px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<div class="container">
-    <h1>Calculadora PR Fetal</h1>
+  <div class="container">
+    <header>
+      <h1>Calculadora de Riesgo de Colestasis Intrahepática del Embarazo</h1>
+      <p class="subtitle">Herramienta basada en las guías RCOG y FLASOG</p>
+    </header>
     
-    <div class="chart-container">
-        <canvas id="prChart"></canvas>
-    </div>
+    <form id="colestasisForm">
+      <div class="form-section">
+        <h3>Datos de la paciente</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="edad">Edad de la paciente</label>
+            <select id="edad" required>
+              <option value="">Seleccionar</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="edadGestacionalSemanas">Edad gestacional</label>
+            <select id="edadGestacionalSemanas" required>
+              <option value="">Seleccionar</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="edadGestacionalDias">Días adicionales</label>
+            <select id="edadGestacionalDias" required>
+              <option value="">Seleccionar</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <h3>Parámetros bioquímicos</h3>
+        <div class="form-grid">
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="acidosBiliares">Ácidos biliares (μmol/L)</label>
+            <input type="number" id="acidosBiliares" step="0.01" required placeholder="μmol/L">
+          </div>
+          
+          <div class="form-group">
+            <label for="bilirrubinaTotal">Bilirrubina total (mg/dL)</label>
+            <input type="number" id="bilirrubinaTotal" step="0.01" required placeholder="mg/dL">
+          </div>
+          
+          <div class="form-group">
+            <label for="got">GOT (U/L)</label>
+            <input type="number" id="got" required placeholder="U/L">
+          </div>
+          
+          <div class="form-group">
+            <label for="gpt">GPT (U/L)</label>
+            <input type="number" id="gpt" required placeholder="U/L">
+          </div>
+        </div>
+      </div>
 
-    <label for="edad_gestacional">Edad Gestacional:</label>
-    <div class="input-group">
-        <input type="number" id="semanas" min="16" max="38" placeholder="Semanas" required>
-        <select id="dias" required>
-            <option value="">Días</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-        </select>
-    </div>
+      <div class="form-section">
+        <h3>Parámetros ecocardiográficos</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="intervaloPR">Intervalo PR</label>
+            <select id="intervaloPR" required>
+              <option value="">Seleccionar</option>
+              <option value="no_evaluado">No evaluado</option>
+              <option value="evaluado">Evaluado</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="valorIntervaloPR">Valor Intervalo PR (ms)</label>
+            <input type="number" id="valorIntervaloPR" placeholder="ms" disabled>
+          </div>
+        </div>
+      </div>
 
-    <label for="pr_medido">Intervalo PR Medido (ms):</label>
-    <input type="number" id="pr_medido" step="0.1" required>
+      <div class="form-section">
+        <h3>Factores clínicos</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="presenciaMeconio">Presencia de meconio</label>
+            <select id="presenciaMeconio" required>
+              <option value="">Seleccionar</option>
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
 
-    <button onclick="calcularPercentiles()">Calcular Percentiles</button>
+          <div class="form-group">
+            <label for="inicioPrecoz">Inicio precoz (antes de 30 semanas)</label>
+            <select id="inicioPrecoz" required>
+              <option value="">Seleccionar</option>
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
 
-    <div id="resultado" class="resultado"></div>
-</div>
-
-<footer>
-    Todos los derechos reservados © MiMaternoFetal.cl
-</footer>
-
-<script>
-const datosPercentiles = {
-    '16-19': { 50: 117.0, 95: 132.3, 99: 138.1 },
-    '20-24': { 50: 121.0, 95: 136.9, 99: 143.3 },
-    '25-29': { 50: 121.0, 95: 139.9, 99: 146.8 },
-    '30-34': { 50: 125.0, 95: 142.9, 99: 150.5 },
-    '35-38': { 50: 121.0, 95: 145.7, 99: 153.9 }
-};
-
-const ctx = document.getElementById('prChart').getContext('2d');
-const chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['16-19', '20-24', '25-29', '30-34', '35-38'],
-        datasets: [
-            {
-                label: 'Percentil 50',
-                data: [117.0, 121.0, 121.0, 125.0, 121.0],
-                borderColor: 'rgba(255, 206, 86, 1)',
-                fill: false
-            },
-            {
-                label: 'Percentil 95',
-                data: [132.3, 136.9, 139.9, 142.9, 145.7],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false
-            },
-            {
-                label: 'Percentil 99',
-                data: [138.1, 143.3, 146.8, 150.5, 153.9],
-                borderColor: 'rgba(153, 102, 255, 1)',
-                fill: false
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            x: {
-                title: {
-                    display: true,
-                    text: 'Edad Gestacional (semanas)'
-                }
-            },
-            y: {
-                title: {
-                    display: true,
-                    text: 'Intervalo PR (ms)'
-                }
-            }
-        }
-    }
-});
-
-function calcularPercentiles() {
-    const semanas = parseInt(document.getElementById('semanas').value);
-    const dias = parseInt(document.getElementById('dias').value);
-    const prMedido = parseFloat(document.getElementById('pr_medido').value);
+          <div class="form-group">
+            <label for="faltaRespuestaTratamiento">Falta de respuesta al tratamiento (2 semanas)</label>
+            <select id="faltaRespuestaTratamiento" required>
+              <option value="">Seleccionar</option>
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <button type="submit">Calcular Riesgo</button>
+    </form>
     
-    if (isNaN(semanas) || isNaN(dias) || isNaN(prMedido)) {
-        mostrarResultado("Por favor, complete todos los campos con valores válidos.");
-        return;
-    }
+    <div id="resultado"></div>
+  </div>
 
-    if (semanas < 16 || semanas > 38 || dias < 0 || dias > 6) {
-        mostrarResultado("La edad gestacional debe estar entre 16+0 y 38+6 semanas.");
-        return;
-    }
+  <footer>
+    Todos los derechos reservados a MiMaternofetal.cl
+  </footer>
 
-    const edadGestacionalDecimal = semanas + (dias / 7);
-    const rangoEG = obtenerRangoEG(edadGestacionalDecimal);
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const edadSelect = document.getElementById('edad');
+      const edadGestacionalSemanasSelect = document.getElementById('edadGestacionalSemanas');
 
-    if (!rangoEG) {
-        mostrarResultado("No se pudo determinar el rango de edad gestacional.");
-        return;
-    }
+      for (let i = 14; i <= 50; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        edadSelect.appendChild(option);
+      }
 
-    const percentiles = datosPercentiles[rangoEG];
-    const percentilCalculado = calcularPercentilPreciso(prMedido, percentiles);
-
-    let resultado = `El intervalo PR medido (${prMedido} ms) corresponde al percentil ${percentilCalculado.toFixed(1)} para la edad gestacional de ${semanas}+${dias} semanas.`;
-
-    mostrarResultado(resultado);
-    actualizarGrafico(rangoEG, prMedido);
-}
-
-function obtenerRangoEG(edadGestacional) {
-    if (edadGestacional >= 16 && edadGestacional < 20) return '16-19';
-    if (edadGestacional >= 20 && edadGestacional < 25) return '20-24';
-    if (edadGestacional >= 25 && edadGestacional < 30) return '25-29';
-    if (edadGestacional >= 30 && edadGestacional < 35) return '30-34';
-    if (edadGestacional >= 35 && edadGestacional <= 38) return '35-38';
-    return null;
-}
-
-function calcularPercentilPreciso(prMedido, percentiles) {
-    if (prMedido < percentiles[50]) {
-        return interpolarPercentil(0, 50, percentiles[50] - 10, percentiles[50], prMedido);
-    } else if (prMedido < percentiles[95]) {
-        return interpolarPercentil(50, 95, percentiles[50], percentiles[95], prMedido);
-    } else if (prMedido < percentiles[99]) {
-        return interpolarPercentil(95, 99, percentiles[95], percentiles[99], prMedido);
-    } else {
-        return 99 + ((prMedido - percentiles[99]) / (percentiles[99] - percentiles[95])) * 0.9;
-    }
-}
-
-function interpolarPercentil(p1, p2, v1, v2, vMedido) {
-    return p1 + ((vMedido - v1) / (v2 - v1)) * (p2 - p1);
-}
-
-function mostrarResultado(mensaje) {
-    document.getElementById('resultado').innerHTML = mensaje;
-}
-
-function actualizarGrafico(rangoEG, prMedido) {
-    const puntoMedidoIndex = chart.data.datasets.findIndex(dataset => dataset.label === 'Punto Medido');
-    if (puntoMedidoIndex !== -1) {
-        chart.data.datasets.splice(puntoMedidoIndex, 1);
-    }
-
-    const rangoIndex = chart.data.labels.indexOf(rangoEG);
-    
-    chart.data.datasets.push({
-        label: 'Punto Medido',
-        data: Array(5).fill(null),
-        borderColor: 'rgba(255, 0, 0, 1)',
-        backgroundColor: 'rgba(255, 0, 0, 1)',
-        pointRadius: 5,
-        pointHoverRadius: 7,
-        showLine: false
+      for (let i = 20; i <= 40; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        edadGestacionalSemanasSelect.appendChild(option);
+      }
     });
 
-    chart.data.datasets[chart.data.datasets.length - 1].data[rangoIndex] = prMedido;
+    document.getElementById('colestasisForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const edad = parseInt(document.getElementById('edad').value);
+      const edadGestacionalSemanas = parseInt(document.getElementById('edadGestacionalSemanas').value);
+      const edadGestacionalDias = parseInt(document.getElementById('edadGestacionalDias').value);
+      const acidosBiliares = parseFloat(document.getElementById('acidosBiliares').value);
+      const got = parseInt(document.getElementById('got').value);
+      const gpt = parseInt(document.getElementById('gpt').value);
+      const bilirrubinaTotal = parseFloat(document.getElementById('bilirrubinaTotal').value);
+      const intervaloPR = document.getElementById('intervaloPR').value;
+      const valorIntervaloPR = parseFloat(document.getElementById('valorIntervaloPR').value);
+      const presenciaMeconio = document.getElementById('presenciaMeconio').value === 'si';
+      const inicioPrecoz = document.getElementById('inicioPrecoz').value === 'si';
+      const faltaRespuestaTratamiento = document.getElementById('faltaRespuestaTratamiento').value === 'si';
+      
+      let riesgo = 'bajo';
+      let recomendaciones = '';
+      
+      if (acidosBiliares >= 100 || presenciaMeconio || faltaRespuestaTratamiento ||
+          (intervaloPR === 'evaluado' && valorIntervaloPR > 150)) {
+        riesgo = 'alto';
+      } else if ((acidosBiliares >= 40 && acidosBiliares < 100) || 
+                 (got > 40 || gpt > 40 || bilirrubinaTotal > 1.2) ||
+                 (edadGestacionalSemanas >= 37) || inicioPrecoz) {
+        riesgo = 'mediano';
+      }
+      
+      switch(riesgo) {
+        case 'bajo':
+          recomendaciones = 'Seguimiento regular. Monitoreo de ácidos biliares cada 1-2 semanas. Considerar tratamiento sintomático para el prurito si es necesario. Continuar con controles prenatales de rutina.';
+          break;
+        case 'mediano':
+          recomendaciones = 'Monitoreo frecuente de ácidos biliares y enzimas hepáticas (semanal). Iniciar tratamiento con ácido ursodeoxicólico. Considerar inducción del parto a las 37-38 semanas. Realizar monitoreo fetal más frecuente.';
+          break;
+        case 'alto':
+          recomendaciones = 'Monitoreo intensivo de ácidos biliares y función hepática (2-3 veces por semana). Tratamiento con ácido ursodeoxicólico en dosis altas. Considerar corticosteroides para maduración pulmonar fetal si es < 34 semanas. Planear el parto entre las 34-36 semanas según la severidad. Monitoreo fetal diario.';
+          break;
+      }
 
-    chart.update();
-}
-</script>
+      if (acidosBiliares > 10) {
+        recomendaciones += ' Se sugiere tratamiento con ácido ursodesoxicólico.';
+      }
+      
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = `
+        <h2>Resultado del Análisis</h2>
+        <p><strong>Nivel de riesgo:</strong> ${riesgo.toUpperCase()}</p>
+        <p><strong>Recomendaciones:</strong> ${recomendaciones}</p>
+      `;
+      resultadoDiv.className = `${riesgo}-riesgo`;
+      
+      resultadoDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    document.getElementById('intervaloPR').addEventListener('change', function() {
+      document.getElementById('valorIntervaloPR').disabled = this.value !== 'evaluado';
+    });
+  </script>
 </body></html>
 <!-- partial -->
   
