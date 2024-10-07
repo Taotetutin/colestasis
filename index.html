@@ -361,8 +361,8 @@
           break;
       }
 
-      if (acidosBiliares > 10) {
-        recomendaciones += ' Se sugiere tratamiento con ácido ursodesoxicólico.';
+      if (acidosBiliares < 40) {
+        recomendaciones += ' Se sugiere tratamiento con ácido ursodesoxicólico si Acidos Biliares > 10.';
       }
       
       const resultadoDiv = document.getElementById('resultado');
